@@ -13,6 +13,10 @@ function displayMsg(msg) {
   return el;
 }
 
+$(document).ready(function(){
+  $('#userInput').focus(); 
+});
+
 var socket = io.connect(window.location.origin);
 socket.on('connect', function() {
   socket.on('message', function(msg) {

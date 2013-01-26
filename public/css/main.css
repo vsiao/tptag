@@ -1,8 +1,26 @@
+html{
+  background: url(https://si0.twimg.com/a/1359060104/t1/img/grey_header_web.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 body{
+  background: none;
+  font-family: "Inconsolata", "Courier New", serif;
+  color: #ffffff;
+  padding: 20px;
 }
 #console{
   font-size: 20px;
+}
+input[type="text"]{
+  margin-top: 20px;
+  background-color: rgba(0,0,0,0.4);
+  border: none;
+  padding: 10px;
+  font-size: 20px;
   font-family: "Inconsolata", "Courier New", serif;
-  background-color: #000000;
   color: #ffffff;
+  width: -webkit-calc(100% - 20px);
 }
