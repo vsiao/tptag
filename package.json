@@ -14,7 +14,16 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/vincentsiao/tptag.git"
-  }
-  "main": "indes.js",
+  },
+  "engines": {
+    "node": "0.8.16",
+    "npm": "1.1.59"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "path": "0.4.9",
+    "socket.io": "0.9.13"
+  },
+  "main": "index.js",
   "license": "MIT"
 }

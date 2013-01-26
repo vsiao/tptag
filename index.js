@@ -1,1 +1,1 @@
-module.exports = require('./lib/TPTag');
+module.exports = require('./lib/Game');
