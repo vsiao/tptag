@@ -30,3 +30,6 @@ input[type="text"]{
   color: #ffffff;
   width: -webkit-calc(100% - 20px);
 }
+#messages li {
+  margin-top: 15px;
+}

@@ -22,9 +22,9 @@ app.begin('Bob Sanders', 'Welcome to the adventures of Bob Sanders! \n You are P
 app.begin('Dog', 'Welcome to the adventures of Bob Sanders! You are Player 2. \n You decide to examine the modernist paradigm of reality. It\'s unlikely that you\'ll reject the subdeconstructive... Zzz');
 
 // Bob asking for help
-app.action('Bob Sanders', ['help'], function(){
-  req.player.notify('Remember, you can always talk' +
-    'to your partner by typing \'say\'');
+app.action('Bob Sanders', ['help'], function(req, state) {
+  req.player.notify('Remember, you can always talk ' +
+    'to your partner by typing \'say message\'.');
 });
 
 // Bob Moving
@@ -181,7 +181,7 @@ app.action('Bob Sanders', 'say', function(req, state) {
     req.player.notify('What do you want to say?');
     return;
   }
-  var msg = '"' + req.tokens.slice(1).join(' ') + '"';
+  var msg = '"' + req.tokens.slice(1).join(' ') + '".';
   req.game.player1.notify('You say ' + msg);
   req.game.player2.notify('Your friend says ' + msg);
 });
@@ -215,13 +215,13 @@ app.action('Dog', 'say', function(req, state) {
     return;
   }
   var msg = '"' + req.tokens.slice(1).join(' ') + '"';
-  req.game.player1.notify('Dog says "WOOF WOOF, WOOF"');
+  req.game.player1.notify('Dog says "WOOF WOOF, WOOF".');
   req.game.player2.notify('You say ' + msg);
 });
 
 // Dog asks for help
 app.action('Dog', ['help','ask'], function(req,state) {
-  req.player.notify('Well, if you need help, you can always type \'say\' to talk to your partner');
+  req.player.notify('Well, if you need help, you can always type \'say\' to talk to your partner.');
   return;
 });
 
@@ -308,14 +308,15 @@ app.action('Dog', ['go', 'move', 'walk', 'head'], function(req, state) {
 
 });
 
-// Try to wake up the dog
-app.action('Dog', ['wake'], function(req, state) {
-  req.player.notify('Ah. So You\'re asleep. Now how do I wake up...');  
+// Dog is asleep
+app.action('Dog', ['look','yell','cry','fetch','find'], function(req, state) {
+  if (state['Dog'].status == "asleep") {
+    sleeptalk(req,state);
+  }
 });
 
-// Dog Sleeptalking
-function sleeptalk(req,state){
-  switch (state['Dog'].sleepcount){
+function sleeptalk(req,state) {
+  switch (state['Dog'].sleepcount) {
     case 1:
       req.game.player2.notify('You remain in the same spot... What\'s going on?... Zzz');
       state['Dog'].sleepcount ++;
