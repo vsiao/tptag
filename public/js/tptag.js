@@ -9,6 +9,7 @@ function displayMsg(msg) {
       } else {
         el.append(msg[idx++]);
       }
+      $('html,body').scrollTop($(document).height());
       if (idx < msg.length) {
         setTimeout(gen, 8);
       }
@@ -31,8 +32,12 @@ socket.on('connect', function() {
     switch (event.keyCode) {
       case 13: // ENTER
         socket.emit('input', $('#userInput').val());
+<<<<<<< HEAD
         $('#messages').append('<li class="user-text">'+$('#userInput').val()+'</li>');
         $('#userInput').val("");
+=======
+        $('#userInput').val('');
+>>>>>>> periods and auto-scroll
         break;
     }
   });
