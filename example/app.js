@@ -309,7 +309,7 @@ app.action('Dog', ['go', 'move', 'walk', 'head'], function(req, state) {
 });
 
 // Dog is asleep
-app.action('Dog', ['look','yell','cry','fetch','find'], function(req, state) {
+app.action('Dog', ['yell','cry','fetch','find'], function(req, state) {
   if (state['Dog'].status == "asleep") {
     sleeptalk(req,state);
   }
