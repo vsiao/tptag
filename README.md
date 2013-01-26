@@ -1,4 +1,4 @@
-TPTag v0.0.1
+TPTag v0.1.1
 ============
 
 Two-Player Text Adventure Game. Yeeeah.
