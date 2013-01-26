@@ -36,7 +36,7 @@ function(req, state) {
     case 'north':
       switch (state[req.player.name].location) {
         case 'officesouth':
-          req.player.notify('You\'re back beside your desk');
+          req.player.notify('You\'re back beside your desk.');
           state['Bob Sanders'].location = "officenorth";
           return;
         case 'officenorth':
@@ -88,7 +88,7 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
       state['Bob Sanders'].hastuna = true;
       return;
     } else {
-      req.player.notify('You have better things to worry about right now... like the GIANT WORMHOLE');
+      req.player.notify('You have better things to worry about right now... like the GIANT WORMHOLE.');
       return;
     }
   }
@@ -96,13 +96,13 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
   // Rest of the time
   switch(req.tokens[1]){
     case 'both':
-      if (state['Bob Sanders'].emergency == false){ req.player.notify('This is no emergency. You don\'t need that time gel.. or the tuna for that matter'); return; }
+      if (state['Bob Sanders'].emergency == false){ req.player.notify('This is no emergency. You don\'t need that time gel.. or the tuna for that matter.'); return; }
       req.player.notify('You clumsy idiot! You dropped both cans on the floor. You know your lunch is ruined, but the time traveling gel is ok. You still can\'t tell which one is which...');
       req.game.player2.notify('Two cans of objects come crashing down. Hmm... this smells like tuna... not sure what the other one is...');
       state['Dog'].tunaidentified = true;
       return;
     case 'cans':
-      if (state['Bob Sanders'].emergency == false){ req.player.notify('This is no emergency. You don\'t need that time gel.. or the tuna for that matter'); return; }
+      if (state['Bob Sanders'].emergency == false){ req.player.notify('This is no emergency. You don\'t need that time gel.. or the tuna for that matter.'); return; }
       req.player.notify('You clumsy idiot! You dropped both cans on the floor. You know your lunch is useless now, but the time traveling gel is ok. You still can\'t tell which one is which...');
       req.game.player2.notify('Two cans of objects come crashing down. Hmm... this smells like tuna... not sure what the other one is...');
       return;
@@ -131,7 +131,7 @@ app.action('Bob Sanders', ['examine','inspect','look','check','view','see','watc
       req.player.notify('It\'s your lunch, beside a canister of portable time portal propellent gel. You forgot to label them, so they both look like pink cans of goo.');
       return;
     case 'can':
-      req.player.notify('Can... pretty useless to just stare at it. Plus I can\'t tell what it is');
+      req.player.notify('Can... pretty useless to just stare at it. Plus I can\'t tell what it is.');
       return;
   }
   
@@ -141,7 +141,7 @@ app.action('Bob Sanders', ['examine','inspect','look','check','view','see','watc
   
   switch (req.tokens[1]) {
     case 'desk':
-      req.player.notify('Well. Looks like there is a Windows 34 Fusion-Tablet-Desktop Computer, and a cork bulletin board with some notes');
+      req.player.notify('Well. Looks like there is a Windows 34 Fusion-Tablet-Desktop Computer, and a cork bulletin board with some notes.');
       return;
     case 'computer':
       if (state['Bob Sanders'].emergency == true){
@@ -151,19 +151,19 @@ app.action('Bob Sanders', ['examine','inspect','look','check','view','see','watc
       req.player.notify('There\'s a message on the screen. It says.. Log your time sheets! Useless.');
       return;
     case 'bulletin':
-      req.player.notify('Has some notes pinned to it');
+      req.player.notify('Has some notes pinned to it.');
       return;
     case 'trash':
-      req.player.notify('Just trash. nothing exciting');
+      req.player.notify('Just trash. nothing exciting.');
       return;
     case 'garbage':
       req.player.notify('Just garbage. smelly.');
       return;
     case 'board':
-      req.player.notify('The bulletin board has some notes pinned to it');
+      req.player.notify('The bulletin board has some notes pinned to it.');
       return;
     case 'notes':
-      req.player.notify('It says.. STAY CALM & NEVER KILL HITLER');
+      req.player.notify('It says.. STAY CALM & NEVER KILL HITLER.');
       return;
     case 'document':
       req.player.notify('Huh. How did this get here... "Inspection for the third"... suddenly... you hear a loud shriek. A low, thunderous rumble echos throughout the office. The left wall rips off and flys into a giant wormhole. You\'re heavy enough to not be sucked away- a flashing message appears on the computer.');
@@ -241,7 +241,7 @@ app.action('Dog',['examine','inspect','look','check','knock','hit','view','see',
       req.player.notify('SO. TEMPTING. you LOVE tuna.');
       return;
     } else {
-      req.player.notify('That no longer excites you');
+      req.player.notify('That no longer excites you.');
       return;
     }
   }
@@ -291,7 +291,7 @@ app.action('Dog', ['go', 'move', 'walk', 'head'], function(req, state) {
           state[req.player.name].location='officenorth';
           return;
         }
-        req.player.notify('You are now on the north side of the office. There\'s not much you can see. This trash can sure looks interesting, though');
+        req.player.notify('You are now on the north side of the office. There\'s not much you can see. This trash can sure looks interesting, though.');
         state[req.player.name].location='officenorth';
         return;
       }
@@ -330,7 +330,7 @@ function sleeptalk(req,state) {
       state['Dog'].sleepcount ++;
       return
     case 4:
-      req.game.player2.notify('You remain in the same spot.... Zzz... Remember, you can type \'say\' to talk to your friend');
+      req.game.player2.notify('You remain in the same spot.... Zzz... Remember, you can type \'say MESSAGE\' to talk to your friend.');
       state['Dog'].sleepcount = 1;
       return
   }
