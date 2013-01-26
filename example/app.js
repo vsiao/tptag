@@ -1,15 +1,23 @@
 var TPTag = require('../');
 var app = TPTag();
 
+app.players(['Bob Sanders', 'Dog']);
 app.initState({
-  name: ['Bob Sanders', 'Dog'],
-  location: ['officenorth', 'officesouth'],
-  state: ['awake', 'asleep']
+  'Bob Sanders': {
+    location: 'officenorth',
+  },
+  'Dog': {
+    location: 'officesouth',
+    status: 'asleep'
+  }
 });
-app.action(['go', 'move', 'walk', 'head'], function(req, game) {
+app.begin('Bob Sanders', 'Hello Colonel Sanders. <3 KFC');
+app.begin('Dog', 'You hate cats. Meow.');
+app.action('Bob Sanders', ['go', 'move', 'walk', 'head'],
+function(req, state) {
   switch (req.tokens[1]) {
     case 'north':
-      switch (game.locations[req.player.id]) {
+      switch (state[req.player.name].location) {
         case 'officesouth':
           return;
         case 'officemid':
@@ -17,7 +25,7 @@ app.action(['go', 'move', 'walk', 'head'], function(req, game) {
       }
       break;
     case 'south':
-      switch (game.locations[req.player.id]) {
+      switch (state.locations[req.player.id]) {
         case 'officenorth':
           return;
         case 'officemid':
@@ -27,19 +35,23 @@ app.action(['go', 'move', 'walk', 'head'], function(req, game) {
   }
   req.player.notify('You can\'t go that way!');
 });
-app.action(['look', 'inspect', 'check'], function(req, game) {
-});
-app.action('say', function(req, game) {
-  var msg = '"' + req.tokens.slice(1).join(' ') + '"';
-  if (req.player.id === 0) {
-    req.game.player1.notify('You say ' + msg);
-    req.game.player2.notify(game.name[0] + ' says ' + msg);
-  } else {
-    req.game.player1.notify('Dog barks "BARK BARK, BARK"');
-    req.game.player2.notify('You bark ' + msg);
+app.action('Bob Sanders', 'say', function(req, state) {
+  if (req.tokens.length <= 1) {
+    req.player.notify('What do you want to say?');
+    return;
   }
+  var msg = '"' + req.tokens.slice(1).join(' ') + '"';
+  req.game.player1.notify('You say ' + msg);
+  req.game.player2.notify('Bob Sanders says ' + msg);
 });
-app.action('call', function(req, game) {
+app.action('Dog', 'say', function(req, state) {
+  if (req.tokens.length <= 1) {
+    req.player.notify('What do you want to say?');
+    return;
+  }
+  var msg = '"' + req.tokens.slice(1).join(' ') + '"';
+  req.game.player1.notify('Dog barks "BARK BARK, BARK"');
+  req.game.player2.notify('You bark ' + msg);
 });
 
 var port = process.env.PORT || 8080;

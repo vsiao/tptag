@@ -26,17 +26,24 @@ function TPTag() {
   return app;
 }
 
-app.action = function(verbs, callback) {
+app.players = function(players) {
+  this.game.players = players;
+  this.game.actions[players[0]] = {};
+  this.game.actions[players[1]] = {};
+};
+app.initState = function(state) {
+  this.game.state = state;
+};
+app.begin = function(playerName, msg) {
+  this.game.beginMsg[playerName] = msg;
+}
+app.action = function(playerName, verbs, callback) {
   if (Object.prototype.toString.call(verbs) !== '[object Array]') {
     verbs = [verbs];
   }
   for (i = 0; i < verbs.length; ++i) {
-    this.game.actions[verbs[i]] = callback;
+    this.game.actions[playerName][verbs[i]] = callback;
   }
-};
-
-app.initState = function(state) {
-  this.game.state = state;
 };
 
 module.exports = TPTag;
