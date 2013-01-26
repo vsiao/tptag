@@ -19,20 +19,24 @@ function displayMsg(msg) {
   return el;
 }
 
-$(document).ready(function(){
-  $('#userInput').focus(); 
-});
-
 var socket = io.connect(window.location.origin);
 socket.on('connect', function() {
+  $('#messages').append(displayMsg('Type \'join ROOM\' to enter a game.'));
   socket.on('message', function(msg) {
     $('#messages').append(displayMsg(msg));
   });
+  $('#userInput').focus(); 
   $('#userInput').keyup(function(event) {
     switch (event.keyCode) {
       case 13: // ENTER
-        socket.emit('input', $('#userInput').val());
-        $('#messages').append('<li class="user-text">'+$('#userInput').val()+'</li>');
+        var input = $('#userInput').val();
+        var tokens = input.split(/\b\s+/);
+        if (tokens[0] === 'join') {
+          socket.emit('join', tokens.slice(1).join(' '));
+        } else {
+          socket.emit('input', input);
+          $('#messages').append('<li class="user-text">'+input+'</li>');
+        }
         $('#userInput').val('');
         break;
     }
