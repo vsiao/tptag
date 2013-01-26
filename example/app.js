@@ -194,7 +194,7 @@ app.action('Bob Sanders', 'say', function(req, state) {
 
 // Dog Eating
 app.action('Dog',['taste','eat','lick','sniff','identify','find'], function(req, state){
-  if (state['Dog'].tunaidentified){
+  if (state['Dog'].tunaidentified == true){
     if (req.tokens[1] == "tuna"){
       req.game.player1.notify('Your dog seems to be licking one of the substances... wait a minute, that one he\'s not licking is the time patch! You pick up the time gel, and you apply it to the wormhole. You\'ve saved the world! Yay. The End.');
       req.game.player2.notify('Mmm.. Tuna.');
