@@ -17,6 +17,9 @@ body{
 .user-text{
   color: #888888;
 }
+li{
+  margin-bottom: 15px;
+}
 input[type="text"]{
   margin-top: 20px;
   background-color: rgba(0,0,0,0.4);
