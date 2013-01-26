@@ -53,7 +53,7 @@ function(req, state) {
             req.player.notify('YIKES. you just stepped on your dog.'
               + ' whoops, you forgot you brought him to work today.'
               + ' don\'t forget, you can type "Say" to speak to your partner!'
-              + ' \n you are now at the south side of your cubicle');
+              + ' \n You are now at the south side of your cubicle.');
             req.game.player2.notify('OW. Your friend just stepped on you.'
               + ' But now you\'re awake. The aroma of tuna fills your nose.'
               + ' There is some stuff to the north, too. What would you like to do?');
