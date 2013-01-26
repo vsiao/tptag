@@ -11,6 +11,7 @@ app.initState({
     location: 'officesouth',
     status: 'asleep',
     sleepcount: 1
+    knockedtrashover: false;
   }
 });
 
@@ -65,9 +66,7 @@ function(req, state) {
 });
 
 // Bob Inspecting Items
-app.action('Bob Sanders',
-['inspect','look','check','view','see','watch','observe','note'],
-function(req, state){
+app.action('Bob Sanders', ['inspect','look','check','view','see','watch','observe','note'], function(req, state){
   if (state[req.player.name].location == 'officesouth'){
     req.player.notify('You are not at your desk!'); return;
   }
@@ -86,6 +85,10 @@ function(req, state){
       return;
     case 'notes':
       req.player.notify('It says.. STAY CALM & NEVER KILL HITLER');
+      return;
+    case 'document':
+      req.player.notify('Huh. How did this get here... "Inspection for the third"... suddenly... you hear a loud shriek. A low, thunderous rumble echos throughout the office. The left wall rips off and flys into a giant wormhole. You\'re heavy enough to not be sucked away- but you quickly come to the realization, this is YOUR fault. You fucked up. You had one job. YOU HAD ONE JOB. What happened? A flashing message appears on the computer.');
+      req.game.player2.notify('What the hell did you just do. You knocked over a trash can, and you BROKE THE WORLD. The Wall to your right DISAPPEARS INTO SOME SORT OF GIANT VACUUM CLEANER. QUICK, PANIC. RUN AROUND. FREAK OUT.');
       return;
     }
     req.player.notify('That\'s not something you can inspect!');
@@ -121,10 +124,31 @@ app.action('Dog', ['help','ask'], function(req,state) {
   return;
 });
 
+// Dog inspects
+app.action('Dog',['inspect','look','check','view','see','watch','observe','note','read'], function(req,state) {
+  if (state['Dog'].status == "asleep") { sleeptalk(req,state); return; }
+  if (req.tokens[1] == "trash" || req.tokens[1] == "garbage") {
+    req.player.notify('You go up to the trash can. You knock it over. Oops. Trash is everywhere. There\'s a banana peel, and a document. Now what?');
+    req.game.player1.notify('Oops. Your dog just knocked over the trash can under the desk. dumb dog. You see a document fall out of it...');
+    state['DOG'].knockedtrashover = true;
+    return;
+  } else if (req.tokens[1] == "tuna") {
+    req.player.notify('Hm. Can\'t inspect it. Don\'t know wheter it\'s coming from.');
+    return;
+  } else if (req.tokens[1] == "document") {
+    req.player.notify('You can\'t read! You are a dog.');
+    return;
+  } else if (req.tokens[1] == "banana" || req.tokens[1] == "peel"){
+    req.player.notify('Dang, thats one exciting banana peel');
+  } else {
+    req.player.notify('I don\'t know what that is...');
+    return;
+  }
+});
 
 // Dog moves
 app.action('Dog', ['go', 'move', 'walk', 'head'], function(req, state) {
-  if (state['Dog'].status == "asleep"){sleeptalk(req,state); return;}
+  if (state['Dog'].status == "asleep"){ sleeptalk(req,state); return; }
   switch (state[req.player.name].location){
     case 'officesouth':
       if (req.tokens[1] == 'north'){
@@ -152,6 +176,7 @@ app.action('Dog', ['look','yell','cry','fetch','find'], function(req, state) {
   }
 });
 
+// Dog Sleeptalking
 function sleeptalk(req,state){
   switch (state['Dog'].sleepcount){
     case 1:
