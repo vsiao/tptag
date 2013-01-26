@@ -1,0 +1,8 @@
+body{
+}
+#console{
+  font-size: 20px;
+  font-family: "Inconsolata", "Courier New", serif;
+  background-color: #000000;
+  color: #ffffff;
+}
