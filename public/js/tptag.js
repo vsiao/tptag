@@ -3,9 +3,14 @@ function displayMsg(msg) {
   var el = $('<li />');
   if (msg.length) {
     function gen() {
-      el.append(msg[idx++]);
+      if (msg[idx] == "\n"){
+        el.append('<br /><br />');
+        ++ idx;
+      } else {
+        el.append(msg[idx++]);
+      }
       if (idx < msg.length) {
-        setTimeout(gen, 10);
+        setTimeout(gen, 8);
       }
     }
     gen();
@@ -26,6 +31,8 @@ socket.on('connect', function() {
     switch (event.keyCode) {
       case 13: // ENTER
         socket.emit('input', $('#userInput').val());
+        $('#messages').append('<li class="user-text">'+$('#userInput').val()+'</li>');
+        $('#userInput').val("");
         break;
     }
   });
