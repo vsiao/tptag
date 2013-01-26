@@ -112,6 +112,12 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
     case 'gel':
       req.player.notify('You can\'t tell which can is which. Perhaps you should just grab both cans.');
       return;
+    case 'fuel':
+      req.player.notify('You can\'t tell which can is which. Perhaps you should just grab both cans.');
+      return;
+    case 'object':
+      req.player.notify('Which object?');
+      return;
     case 'can':
       req.player.notify('You can\'t tell which can is which. Perhaps you should just grab both cans.');
       return;
