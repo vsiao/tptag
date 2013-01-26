@@ -105,6 +105,7 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
       if (state['Bob Sanders'].emergency == false){ req.player.notify('This is no emergency. You don\'t need that time gel.. or the tuna for that matter.'); return; }
       req.player.notify('You clumsy idiot! You dropped both cans on the floor. You know your lunch is useless now, but the time traveling gel is ok. You still can\'t tell which one is which...');
       req.game.player2.notify('Two cans of objects come crashing down. Hmm... this smells like tuna... not sure what the other one is...');
+      state['Dog'].tunaidentified = true;
       return;
     case 'tuna':
       req.player.notify('You can\'t tell which can is which. Perhaps you should just grab both cans.');
