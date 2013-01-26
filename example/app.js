@@ -7,6 +7,8 @@ app.action(['look', 'inspect', 'check'], function(req, game) {
 });
 app.action('say', function(req, game) {
 });
+app.action('call', function(req, game) {
+});
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
