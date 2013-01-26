@@ -21,6 +21,7 @@ socket.on('connect', function() {
   $('#userInput').keyup(function(event) {
     switch (event.keyCode) {
       case 13: // ENTER
+        socket.emit('input', $('#userInput').val());
         break;
     }
   });
