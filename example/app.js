@@ -31,6 +31,7 @@ app.action('Bob Sanders', ['help'], function(){
 app.action('Bob Sanders', ['go', 'move', 'walk', 'head'],
 function(req, state) {
   switch (req.tokens[1]) {
+    
     // If Bob tries to move north
     case 'north':
       switch (state[req.player.name].location) {
@@ -43,6 +44,7 @@ function(req, state) {
           return;
       }
       break;
+    
     // If Bob tries to move south
     case 'south':
       switch (state[req.player.name].location) {
@@ -73,6 +75,7 @@ function(req, state) {
 
 app.action('Bob Sanders', ['forward','back','left','right'], function(req, state) {
   req.player.notify('Hm. I don\'t really understand that. How about something like go north?');
+  return;
 });
 
 // Bob Taking Items
@@ -114,6 +117,7 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
       return;
   }
 });
+
 // Bob Inspecting Items
 app.action('Bob Sanders', ['examine','inspect','look','check','view','see','watch','observe','note'], function(req, state){
   switch(req.tokens[1]){
@@ -203,6 +207,7 @@ app.action('Dog',['poop','poo','pee'], function(req, state) {
   return;
   
 })
+
 // Dog Talking
 app.action('Dog', 'say', function(req, state) {
   if (req.tokens.length <= 1) {
@@ -210,7 +215,7 @@ app.action('Dog', 'say', function(req, state) {
     return;
   }
   var msg = '"' + req.tokens.slice(1).join(' ') + '"';
-  req.game.player1.notify('Dog says "BARK BARK, BARK"');
+  req.game.player1.notify('Dog says "WOOF WOOF, WOOF"');
   req.game.player2.notify('You say ' + msg);
 });
 
