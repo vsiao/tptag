@@ -187,6 +187,12 @@ app.action('Dog',['taste','eat','lick','sniff','identify','find'], function(req,
   }
 });
 
+// Dog Actions
+app.action('Dog',['poop','poo','pee'], function(req, state) {
+  req.player.notify('Hm. Not now.');
+  return;
+  
+})
 // Dog Talking
 app.action('Dog', 'say', function(req, state) {
   if (req.tokens.length <= 1) {
