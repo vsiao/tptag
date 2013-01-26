@@ -26,10 +26,6 @@ function TPTag() {
   return app;
 }
 
-app.states = function(states) {
-  this.game.states = states;
-};
-
 app.action = function(verbs, callback) {
   if (Object.prototype.toString.call(verbs) !== '[object Array]') {
     verbs = [verbs];
@@ -37,6 +33,10 @@ app.action = function(verbs, callback) {
   for (i = 0; i < verbs.length; ++i) {
     this.game.actions[verbs[i]] = callback;
   }
+};
+
+app.initState = function(state) {
+  this.game.state = state;
 };
 
 module.exports = TPTag;
