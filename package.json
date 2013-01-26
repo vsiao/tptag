@@ -1,0 +1,20 @@
+{
+  "name": "tptag",
+  "version": "0.0.1",
+  "description": "Two-Player Text Adventure Game Framework",
+  "keywords": [
+    "text",
+    "adventure",
+    "game"
+  ],
+  "contributors": [
+    "Victor Hung <vhung@mit.edu>",
+    "Vincent Siao <vsiao@andrew.cmu.edu>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vincentsiao/tptag.git"
+  }
+  "main": "indes.js",
+  "license": "MIT"
+}
