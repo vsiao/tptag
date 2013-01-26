@@ -115,8 +115,11 @@ app.action('Bob Sanders', ['reach','get','take','grab'], function(req, state) {
   }
 });
 // Bob Inspecting Items
-app.action('Bob Sanders', ['inspect','look','check','view','see','watch','observe','note'], function(req, state){
+app.action('Bob Sanders', ['examine','inspect','look','check','view','see','watch','observe','note'], function(req, state){
   switch(req.tokens[1]){
+    case 'around':
+      req.player.notify('There\'s a desk to the north, with some stuff on it. There\'s a shelf above you, also with some stuff on it. Looks like a pretty lame office.');
+      return;
     case 'up':
       req.player.notify('There\'s a shelf.');
       return;
@@ -181,10 +184,17 @@ app.action('Bob Sanders', 'say', function(req, state) {
 
 // Dog Eating
 app.action('Dog',['taste','eat','lick','sniff','identify','find'], function(req, state){
-  if (req.tokens[1] == "tuna"){
-    req.game.player1.notify('Your dog seems to be licking one of the substances... wait a minute, that one he\'s not licking is the time patch! You pick up the time gel, and you apply it to the wormhole. You\'ve saved the world! Yay. The End.');
-    req.game.player2.notify('Mmm.. Tuna.');
+  if (state['Dog'].tunaidentified){
+    if (req.tokens[1] == "tuna"){
+      req.game.player1.notify('Your dog seems to be licking one of the substances... wait a minute, that one he\'s not licking is the time patch! You pick up the time gel, and you apply it to the wormhole. You\'ve saved the world! Yay. The End.');
+      req.game.player2.notify('Mmm.. Tuna.');
+      return;
+    }
   }
+  
+  req.player.notify('You\'re a dog, you don\'t know what\'s what.');
+  return;
+
 });
 
 // Dog Actions
@@ -211,9 +221,15 @@ app.action('Dog', ['help','ask'], function(req,state) {
 });
 
 // Dog inspects
-app.action('Dog',['inspect','look','check','knock','hit','view','see','watch','observe','note','read'], function(req,state) {
+app.action('Dog',['examine','inspect','look','check','knock','hit','view','see','watch','observe','note','read','grab','take','get','use'], function(req,state) {
+  
   if (state['Dog'].status == "asleep") { sleeptalk(req,state); return; }
   
+  // look around
+  if (req.tokens[1] == "around"){
+    req.player.notify('You look around. Theres not much in this miserable little cubicle... The smell of tuna is still pretty strong, though.');
+    return;
+  }
   // if trash can is knocked over
   if (state['Dog'].tunaidentified == true){
     if (req.tokens[1] == "tuna"){
@@ -246,8 +262,10 @@ app.action('Dog',['inspect','look','check','knock','hit','view','see','watch','o
     return;
   } else if (req.tokens[1] == "banana" || req.tokens[1] == "peel"){
     req.player.notify('Dang, thats one exciting banana peel');
+    return;
   } else if (req.tokens[1] == "up"){
     req.player.notify('You are too short. You can not see what is up.');
+    return;
   } else {
     req.player.notify('I don\'t know what that is...');
     return;
