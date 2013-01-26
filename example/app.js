@@ -18,10 +18,9 @@ app.begin('Bob Sanders', 'You are Bob Sanders, time space explorer consultant. Y
 app.begin('Dog', 'You decide to examine the modernist paradigm of reality. It\'s unlikely that you\'ll reject the subdeconstructive... Zzz');
 
 // Bob asking for help
-app.action('Bob Sanders', ['help'],
-function(){
-  req.player.notify('Remember, you can always talk to your partner by typing \'say\'');
-  return;               
+app.action('Bob Sanders', ['help'], function(){
+  req.player.notify('Remember, you can always talk' +
+    'to your partner by typing \'say\'');
 });
 
 // Bob Moving
@@ -45,8 +44,12 @@ function(req, state) {
       switch (state[req.player.name].location) {
         case 'officenorth':
           if (state['Dog'].status == "asleep"){
-            req.player.notify('YIKES. you just stepped on your dog. whoops, you forgot you brought him to work today. don\'t forget, you can type "Say" to speak to your partner!');
-            req.game.player2.notify('OW. Your friend just stepped on you. But now you\'re awake. The aroma of tuna fills your nose. What would you like to do?');
+            req.player.notify('YIKES. you just stepped on your dog.'
+              + ' whoops, you forgot you brought him to work today.'
+              + ' don\'t forget, you can type "Say" to speak to your partner!');
+            req.game.player2.notify('OW. Your friend just stepped on you.'
+              + ' But now you\'re awake. The aroma of tuna fills your nose.'
+              + ' What would you like to do?');
             state['Dog'].status = "awake";
           }
           req.player.notify('You\'re now at the south side of the cubicle.');
@@ -62,9 +65,12 @@ function(req, state) {
 });
 
 // Bob Inspecting Items
-app.action('Bob Sanders', ['inspect','look','check','view','see','watch','observe','note'],
+app.action('Bob Sanders',
+['inspect','look','check','view','see','watch','observe','note'],
 function(req, state){
-  if (state[req.player.name].location == 'officesouth'){ req.player.notify('You are not at your desk!'); return;}
+  if (state[req.player.name].location == 'officesouth'){
+    req.player.notify('You are not at your desk!'); return;
+  }
   switch (req.tokens[1]) {
     case 'desk':
       req.player.notify('Well. Looks like there is a Windows 34 Fusion-Tablet-Desktop Computer, and a cork bulletin board with some notes');
