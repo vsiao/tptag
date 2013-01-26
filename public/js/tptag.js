@@ -33,6 +33,9 @@ socket.on('connect', function() {
         var tokens = input.split(/\b\s+/);
         if (tokens[0] === 'join') {
           socket.emit('join', tokens.slice(1).join(' '));
+        } else if (tokens[0] === 'reset') {
+          $('#messages').empty();
+          $('#messages').append(displayMsg('Type \'join ROOM\' to enter a game.'));
         } else {
           socket.emit('input', input);
           $('#messages').append('<li class="user-text">'+input+'</li>');
