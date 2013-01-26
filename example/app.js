@@ -75,6 +75,9 @@ function(req, state){
     case 'bulletin':
       req.player.notify('Has some notes pinned to it');
       return;
+    case 'board':
+      req.player.notify('The bulletin board has some notes pinned to it');
+      return;
     case 'notes':
       req.player.notify('It says.. STAY CALM & NEVER KILL HITLER');
       return;
@@ -111,30 +114,58 @@ app.action('Dog', ['help','ask'], function(req,state) {
   req.player.notify('Well, if you need help, you can always type \'say\' to talk to your partner');
   return;
 });
+
+
+// Dog moves
+app.action('Dog', ['go', 'move', 'walk', 'head'], function(req, state) {
+  if (state['Dog'].status == "asleep"){sleeptalk(req,state); return;}
+  switch (state[req.player.name].location){
+    case 'officesouth':
+      if (req.tokens[1] == 'north'){
+        req.player.notify('You are now on the north side of the office. There\'s not much you can see. This trash can sure looks interesting, though');
+        state[req.player.name].location='officenorth';
+        return;
+      }
+    break;
+    case 'officenorth':
+      if (req.tokens[1] == 'south'){
+        req.player.notify('You are now on the south side of the office. Nothing exciting here. To your north is a desk.');
+        state[req.player.name].location='officesouth';
+        return;
+      }
+    break;
+  }
+  req.player.notify('You run into a wall.');
+
+});
+
 // Dog is asleep
-app.action('Dog', ['go', 'move', 'walk', 'head', 'look','yell','cry','fetch','find'],
-function(req, state) {
+app.action('Dog', ['look','yell','cry','fetch','find'], function(req, state) {
   if (state['Dog'].status == "asleep"){
-    switch (state['Dog'].sleepcount){
-      case 1:
-        req.game.player2.notify('You remain in the same spot... What\'s going on?... Zzz');
-        state['Dog'].sleepcount ++;
-        return;
-      case 2:
-        req.game.player2.notify('I put on my robe and wizard hat... Zzz...');
-        state['Dog'].sleepcount ++;
-        return;
-      case 3:
-        req.game.player2.notify('Zzz... cats... calculus... cream puffs... Zzz...');
-        state['Dog'].sleepcount ++;
-        return
-      case 4:
-        req.game.player2.notify('You remain in the same spot.... Zzz... Remember, you can type \'say\' to talk to your friend');
-        state['Dog'].sleepcount = 1;
-        return
-    }
+    sleeptalk(req,state);
   }
 });
+
+function sleeptalk(req,state){
+  switch (state['Dog'].sleepcount){
+    case 1:
+      req.game.player2.notify('You remain in the same spot... What\'s going on?... Zzz');
+      state['Dog'].sleepcount ++;
+      return;
+    case 2:
+      req.game.player2.notify('I put on my robe and wizard hat... Zzz...');
+      state['Dog'].sleepcount ++;
+      return;
+    case 3:
+      req.game.player2.notify('Zzz... cats... calculus... cream puffs... Zzz...');
+      state['Dog'].sleepcount ++;
+      return
+    case 4:
+      req.game.player2.notify('You remain in the same spot.... Zzz... Remember, you can type \'say\' to talk to your friend');
+      state['Dog'].sleepcount = 1;
+      return
+  }
+}
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
